@@ -59,4 +59,32 @@ public class Study01 {
         }
         return -1;
     }
+
+
+    /**
+     * TODO 减少的了循环次数，把判断是否是要找到的数放到循环外，之前循环内判断3次，这次只判断1次。缺点是必须走完循环才能判断是否查找到了。
+     * TODO 最好最坏情况下，时间复杂度都是 O(log(n))
+     * @param num
+     * @param target
+     * @return
+     */
+    public static int queryNum3(int[] num,int target) {
+        int start = 0;
+        int end = num.length ;
+        // FIXME 循环用来缩小边界，一直缩到要查找数的两边
+        while (1 < end - start) {
+            int middle = (start + end) >>> 1;
+            if (target < num[middle]) {  // FIXME 如果数再左边，则缩小右边界
+                end = middle;
+            } else {           // FIXME 如果数再右边，则缩小左边界
+                start = middle;
+            }
+        }
+        // FIXME 然后再判断中间数是否是要查找的数，如果是返回，不是则返回-1
+        if (target == num[start]) {
+            return num[start];
+        } else {
+            return -1;
+        }
+    }
 }
